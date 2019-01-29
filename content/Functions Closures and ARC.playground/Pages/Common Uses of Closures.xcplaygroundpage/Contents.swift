@@ -75,7 +75,7 @@ let adultsListFromFilter = guestList.filter { (aGuest: Guest) in
  
  `(Element, Element) -> Bool`.
  
- **Sorted will compare two elements in the array and will use this closure to determin if the first element should be sorted before the second element.**
+ **Sorted will compare two elements in the array and will use this closure to determine if the first element should be sorted before the second element.**
  
  The Closure will return true if its first argument should be ordered before its second argument.
  - note: you can reverse this by negating the logic thus sorting by descending order vs ascending
@@ -176,32 +176,98 @@ let namesCombined = guestList.reduce("") { (sentence, aGuest) -> String in
 //sort these numbers
 let numbersToSort = [2, 4, 4, 2, 1, 0]
 
+let sortedArr = numbersToSort.sorted { numOne, numTwo in
+    if numOne >= numTwo {
+        return false
+    } else {
+        return true
+    }
+}
+print(sortedArr)
+
 
 //sort the guests by name
 let guestsToSort = [sam, eric, sara, charlie]
 
+let sortedNames = guestsToSort.sorted { nameOne, nameTwo in
+    if nameOne.name <= nameTwo.name {
+        return true
+    } else {
+        return false
+    }
+}
+
+print(sortedNames)
+
 
 //sort the guests by age, but in descending order (youngest at the front of the array)
 
+let reversedAge = guestsToSort.sorted { (guestOne: Guest, guestTwo: Guest) in
+    if guestOne.age <= guestTwo.age {
+        return true
+    } else {
+        return false
+    }
+}
+
+print(reversedAge)
 
 //filter the guests to only include guests younger than 18 years
+
+let filteredGuests = guestsToSort.filter { guest in
+    if guest.age <= 18 {
+        return true
+    }
+    return false
+}
+print(filteredGuests)
 
 
 //filter the numbers to only include even numbers
 let numbersToFilter = [2, 1, 1, 5, 6, 7, 10]
 
+let evens = numbersToFilter.filter { number in
+    if number % 2 == 0 {
+        return true
+    }
+    return false
+}
+print(evens)
+
 
 //map the numbers to be double their values (e.g. 5 gets mapped to 10)
 let numbersToDouble = [2, 4, 6, 8]
+
+let doubled = numbersToDouble.map { (number: Int) -> Int in
+    return number * 2
+}
+print(doubled)
 
 
 //map the numbers into strings
 let numbersToMapIntoStrings = [2, 4, 5, 1, 2, 2]
 
+let toString = numbersToMapIntoStrings.map { (number: Int) -> String in
+    return String(number)
+}
+print(toString)
+
 
 //reduce the numbers into a sum, but exclude negative numbers from the sum. Thus, your reduce closure should reduce this array to equal 10
 let numbersToSum = [-2, -5, -4, 5, -5, 5]
 
+let negFiltered = numbersToSum.filter { number in
+    if number > 0 {
+        return true
+    }
+    return false
+}
+print(negFiltered)
+let resultSum = negFiltered.reduce(0) { (runningSum, currNum) -> Int in
+    let sum = runningSum + currNum
+    return sum
+}
+print(resultSum)
 
 /*:
  We've learned more on how to use closures in our code, specifically with higher order functions, in order to clean up our code and make it more efficient.
